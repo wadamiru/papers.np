@@ -18,3 +18,12 @@ where $\sigma(z) = \frac{1}{1 + e^{-z}}$ is the logistic sigmoid function, $a^0 
 $$E = \frac{1}{2N} \sum_n \sum_c (t_{nc} - a^L_{nc})^2$$
 
 ---
+
+## Forward Pass
+
+For layer $l$:
+
+$$z^l = a^{l-1} W^l + b^l$$
+$$a^l = \sigma(z^l) = \frac{1}{1 + \exp(-z^l)}$$
+
+---

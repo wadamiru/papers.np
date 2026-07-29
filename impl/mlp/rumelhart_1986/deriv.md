@@ -17,6 +17,13 @@ where $\sigma(z) = \frac{1}{1 + e^{-z}}$ is the logistic sigmoid function, $a^0 
 
 $$E = \frac{1}{2N} \sum_n \sum_c (t_{nc} - a^L_{nc})^2$$
 
+### Weight & Bias Initialization
+To break symmetry and prevent hidden units from computing identical gradients, weights are initialized to small random values around zero:
+
+$$W^l_{ij} \sim U(-r, r) \quad \text{where } r \approx 0.1 \text{ or } 0.5$$
+
+Biases $b^l$ can be initialized to small random values or set to $0$.
+
 ---
 
 ## Forward Pass

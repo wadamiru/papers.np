@@ -17,13 +17,12 @@ def sigmoid(z):
     return 1 / (1 + np.exp(-z))
 
 class MLP:
-    """
-    linear + sigmoid layers stacked. layer_sizes e.g. [2,4,1]
-    Weight init.: 
-    """
+    """linear + sigmoid layers stacked. layer_sizes e.g. [2,4,1]"""
 
     def __init__(self, l_sz, seed=0):
         rng = np.random.default_rng(seed)
         self.W, self.b = [], []
         for nin, nout in zip(l_sz[:-1], l_sz[1:]):
+            self.W.append(rng.uniform(-0.3, -0.3, size=(nin, nout)))
+            self.b.append(rng.uniform(-0.3, -0.3, size=(nout,)))
             

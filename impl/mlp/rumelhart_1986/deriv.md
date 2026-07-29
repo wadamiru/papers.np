@@ -65,3 +65,20 @@ Required to continue the recursion:
 $$\frac{\partial E}{\partial a^{l-1}} = \delta^l (W^l)^T$$
 
 ---
+
+## Weight Update — Momentum (Eq. 8)
+
+$$v^l(t) = \alpha v^l(t-1) - \epsilon \frac{\partial E}{\partial W^l}$$
+
+$$W^l \leftarrow W^l + v^l(t)$$
+
+* $\alpha = 0.9$ (momentum coefficient used in the paper)
+* $\epsilon$ = learning rate (task-dependent)
+
+---
+
+## Sanity Check: XOR
+
+The **XOR** problem is not linearly separable, meaning a single-layer perceptron ([Minsky & Papert, 1969](https://en.wikipedia.org/wiki/Perceptrons_(book))) provably cannot solve it. However, a network with one hidden layer can. 
+
+This serves as the classic proof-of-life for any backpropagation implementation, demonstrating the ability to learn internal representations that linear models cannot.

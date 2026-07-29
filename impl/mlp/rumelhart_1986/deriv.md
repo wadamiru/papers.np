@@ -27,3 +27,41 @@ $$z^l = a^{l-1} W^l + b^l$$
 $$a^l = \sigma(z^l) = \frac{1}{1 + \exp(-z^l)}$$
 
 ---
+
+## Backward Pass — The Generalized Delta Rule
+
+Define the error signal at layer $l$'s net input as:
+
+$$\delta^l \triangleq \frac{\partial E}{\partial z^l}$$
+
+### Output Layer ($L$)
+Chain rule through the loss function and sigmoid activation:
+
+$$\frac{\partial E}{\partial a^L} = \frac{a^L - t}{N}$$
+
+$$\delta^L = \frac{\partial E}{\partial a^L} \odot \sigma'(z^L) = \frac{a^L - t}{N} \odot a^L \odot (1 - a^L)$$
+
+> *Note: Uses the standard sigmoid derivative identity: $\sigma'(z) = \sigma(z)(1 - \sigma(z)) = a(1 - a)$.*
+
+### Hidden Layers ($l < L$)
+The recursive back-propagation step (Eq. 7 in the paper). The error is pulled backward through the next layer's weights before being multiplied by the local derivative:
+
+$$\frac{\partial E}{\partial a^l} = \delta^{l+1} (W^{l+1})^T$$
+
+$$\delta^l = \frac{\partial E}{\partial a^l} \odot a^l \odot (1 - a^l)$$
+
+> **Key Insight:** This recursion is the central trick of backprop. Because $\delta^l$ only depends on $\delta^{l+1}$ and never on anything further downstream, error signals across an arbitrarily deep stack can be computed in a single backward sweep.
+
+### Parameter Gradients
+At every layer $l$:
+
+$$\frac{\partial E}{\partial W^l} = (a^{l-1})^T \delta^l$$
+
+$$\frac{\partial E}{\partial b^l} = \sum_{n=1}^{N} \delta^l_n$$
+
+### Gradient into Previous Layer's Activations
+Required to continue the recursion:
+
+$$\frac{\partial E}{\partial a^{l-1}} = \delta^l (W^l)^T$$
+
+---

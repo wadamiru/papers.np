@@ -29,4 +29,11 @@ class MLP:
         self.vW = [np.zeros_like(w) for w in self.W]
         self.vb = [np.zeros_like(b) for b in self.b]
         # layer activations cache for backward()
-        self._a = None
+        self._a = None  # a[0] = input
+
+    def forward(self, x):
+        self._a = [x]
+        for W, b in zip(self.W, self.b):
+            z = self._a[-1] @ W + b
+            self._a.append(sigmoid(z))
+        return self._a[-1]

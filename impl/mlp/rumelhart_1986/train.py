@@ -23,7 +23,7 @@ class MLP:
         rng = np.random.default_rng(seed)
         self.W, self.b = [], []
         for nin, nout in zip(l_sz[:-1], l_sz[1:]):
-            self.W.append(rng.uniform(-0.3, -0.3, size=(nin, nout)))
+            self.W.append(rng.uniform(-0.3, 0.3, size=(nin, nout)))
             self.b.append(rng.uniform(-0.3, -0.3, size=(nout,)))
         # momentum velocity buffers, one per parameter
         self.vW = [np.zeros_like(w) for w in self.W]
@@ -56,8 +56,8 @@ class MLP:
             db[l] = delta.sum(axis=0)
 
             if l > 0:
-            # propagate error to previous layer's activations, then
-            # through that layer's own sigmoid derivative to get its delta
-            da_prev = delta @ self.W[l].T            # dE/da^l = delta^l+1 @ W^l+1.T
-            delta = da_prev * a_prev * (1 - a_prev)  # delta^l = dE/da^l * a^l * (1-a^l)
+                # propagate error to previous layer's activations, then
+                # through that layer's own sigmoid derivative to get its delta
+                da_prev = delta @ self.W[l].T            # dE/da^l = delta^l+1 @ W^l+1.T
+                delta = da_prev * a_prev * (1 - a_prev)  # delta^l = dE/da^l * a^l * (1-a^l)
         return dW, db

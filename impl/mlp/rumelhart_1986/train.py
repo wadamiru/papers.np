@@ -24,7 +24,7 @@ class MLP:
         self.W, self.b = [], []
         for nin, nout in zip(l_sz[:-1], l_sz[1:]):
             self.W.append(rng.uniform(-0.3, 0.3, size=(nin, nout)))
-            self.b.append(rng.uniform(-0.3, -0.3, size=(nout,)))
+            self.b.append(rng.uniform(-0.3, 0.3, size=(nout,)))
         # momentum velocity buffers, one per parameter
         self.vW = [np.zeros_like(w) for w in self.W]
         self.vb = [np.zeros_like(b) for b in self.b]

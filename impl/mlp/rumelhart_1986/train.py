@@ -41,5 +41,23 @@ class MLP:
     def backward(self, target):
         """Backprop the generalized delta rule (deriv.md). Returns
         (dW list, db list) matching self.W / self.b order."""
+        n = target.shape[0]
+        a_out = self._a[-1]
 
-        
+        # delta^L = dE/dz^L = dE/da^L * da^L/dz^L
+        delta = (a_out - target) / n * a_out * (1 - a_out)
+
+        dW, db = [None] * len(self.W), [None] * len(self.b)
+        for l in reversed(range(len(self.W))): # L-1 to 0
+            # act feeding into layer l (a^(l-1))
+            a_prev = self._a[l]
+            
+            dW[l] = a_prev.T @ delta
+            db[l] = delta.sum(axis=0)
+
+            if l > 0:
+            # propagate error to previous layer's activations, then
+            # through that layer's own sigmoid derivative to get its delta
+            da_prev = delta @ self.W[l].T # dE/da^l = delta^l+1 @ W^l+1.T
+            delta = da_prev * a_prev * (1 - a_prev)
+        return dW, db

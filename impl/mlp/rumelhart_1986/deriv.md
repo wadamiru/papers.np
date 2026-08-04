@@ -2,6 +2,14 @@
 ## *Learning Representations by Back-Propagating Errors*
 
 ---
+## Notation Used
+
+* **$t$**: Target vector / ground-truth label (stands for *target*, analogous to $y$ in modern literature).
+* **$c$**: Output unit / component index ($c \in \{1, \dots, C\}$) for multi-output tasks.
+* **$n$**: Sample / example index ($n \in \{1, \dots, N\}$) within a batch.
+* **$t_{nc}$**: Target value for the $c$-th output unit on the $n$-th training example.
+* **$a^L_{nc}$**: Network activation (prediction) for the $c$-th output unit on the $n$-th example at final layer $L$.
+* **$t$ in $v^l(t)$**: Denotes iteration / time step $t$ in optimization dynamics (distinct from target $t$).
 
 ## Model Setup
 

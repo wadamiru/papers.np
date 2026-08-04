@@ -37,3 +37,9 @@ class MLP:
             z = self._a[-1] @ W + b
             self._a.append(sigmoid(z))
         return self._a[-1]
+
+    def backward(self, target):
+        """Backprop the generalized delta rule (deriv.md). Returns
+        (dW list, db list) matching self.W / self.b order."""
+
+        

@@ -58,6 +58,6 @@ class MLP:
             if l > 0:
             # propagate error to previous layer's activations, then
             # through that layer's own sigmoid derivative to get its delta
-            da_prev = delta @ self.W[l].T # dE/da^l = delta^l+1 @ W^l+1.T
-            delta = da_prev * a_prev * (1 - a_prev)
+            da_prev = delta @ self.W[l].T            # dE/da^l = delta^l+1 @ W^l+1.T
+            delta = da_prev * a_prev * (1 - a_prev)  # delta^l = dE/da^l * a^l * (1-a^l)
         return dW, db
